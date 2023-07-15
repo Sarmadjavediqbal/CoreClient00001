@@ -18,6 +18,9 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.SensorId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.SensorData)
             </th>
             <th>
@@ -34,6 +37,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SensorId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SensorData)
