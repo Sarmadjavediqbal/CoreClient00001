@@ -5,19 +5,16 @@ namespace CoreClient00001.Models
 {
     public class DataAccess
     {
-        [Column("id")]
-        public int Id { get; set; }
+        [Column("SensorLogID")]
+        public int SensorLogID { get; set; }
 
-        [Column("sensor_id")]
-        public int SensorId { get; set; }
+        [Column("SensorID")]
+        public int SensorID { get; set; }
 
-        [Column("sensor_data")]
+        [Column("SensorData")]
         public double? SensorData { get; set; }
 
-        [Column("sensor_name")]
-        public string? SensorName { get; set; }
-
-        [Column("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        [Column("SensorTime")]
+        public DateTime SensorTime { get; set; }
     }
 }

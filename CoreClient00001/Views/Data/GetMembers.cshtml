@@ -5,8 +5,72 @@
 }
 
 <meta http-equiv="refresh" content="15" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 <h1>Get Data</h1>
+
+
+@{
+    string chartTitle = "Sensor Data";
+    string chartUnit = "Data";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Scada Sensor Data</h1>
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    var chartType=$('#ChartType').val();
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+
+    @foreach (var data in Model)
+    {
+
+        <text>['@data.SensorTime', @data.SensorData], </text>
+
+    }
+
+                 ]);
+
+        var options = {
+            title: '@chartTitle',
+            curveType: 'function',
+            pointsVisible: true,
+            lineWidth: 3,
+            legend: 'none',
+            hAxis: { title: 'Time' },
+            vAxis: { title: '@chartUnit' },
+            width: '100%',
+            height: '100%',
+            chartArea: { width: '85%', height: '75%' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
+        chart.draw(data, options);
+    }
+</script>
+
+<div class="container-fluid lead">
+
+    @*<div class="col-2">
+        <select id="ChartType" class="form-control" style="width: 150px;">
+            <option selected>--Select Chart Type--</option>
+            <option>BarChart</option>
+            <option>LineChart</option>
+            <option>ColumnChart</option>
+        </select>
+    </div>*@
+
+    <div id="line_chart" style="width: 800px; height: 600px"></div>
+
+</div>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -15,19 +79,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.SensorLogID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SensorId)
+                @Html.DisplayNameFor(model => model.SensorID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SensorData)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SensorName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
+                @Html.DisplayNameFor(model => model.SensorTime)
             </th>
             <th></th>
         </tr>
@@ -36,19 +97,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.SensorLogID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SensorId)
+                @Html.DisplayFor(modelItem => item.SensorID)
             </td>
-            <td>
+            <td id="sensorData">
                 @Html.DisplayFor(modelItem => item.SensorData)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SensorName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
+            <td id="sensorTime">
+                @Html.DisplayFor(modelItem => item.SensorTime)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

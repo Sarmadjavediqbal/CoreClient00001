@@ -23,7 +23,7 @@ namespace CoreClient00001.Controllers
                 /*var response = client.GetAsync("api/MyAPI").ConfigureAwait(false);*/
                 
 
-                var responseTask = client.GetAsync("api/MyAPI");
+                var responseTask = client.GetAsync("api/ScadaSensorLog");
                 responseTask.Wait();
 
                 var result = responseTask.Result;
